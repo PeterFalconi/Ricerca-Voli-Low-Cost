@@ -1,28 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cerca Voli</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="container">
-        <h1>Cerca Voli</h1>
-        <form id="flight-search-form">
-            <label for="departure-city">Città di partenza:</label>
-            <input type="text" id="departure-city" name="departure-city" placeholder="Es: Roma" required>
-            
-            <label for="arrival-city">Città di arrivo:</label>
-            <input type="text" id="arrival-city" name="arrival-city" placeholder="Es: Milano" required>
-            
-            <label for="departure-date">Data di partenza:</label>
-            <input type="date" id="departure-date" name="departure-date" required>
-            
-            <button type="submit">Cerca</button>
-        </form>
-        <div id="results"></div>
-    </div>
-    <script src="script.js"></script>
-</body>
-</html>
+document.getElementById('search-form').addEventListener('submit', async function (e) {
+  e.preventDefault();
+
+  const fromCity = document.getElementById('from-city').value;
+  const toCity = document.getElementById('to-city').value;
+  const departureDate = document.getElementById('departure-date').value;
+  const adults = document.getElementById('adults').value;
+
+  const apiUrl = `https://api.travelpayouts.com/v2/prices/latest?origin=${fromCity}&destination=${toCity}&departure_at=${departureDate}&adults=${adults}&token=f438ef847616d4e4229a56129f870ba2`;
+
+  try {
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+
+    const resultsList = document.getElementById('results-list');
+    resultsList.innerHTML = '';
+
+    data.data.forEach(flight => {
+      const listItem = document.createElement('li');
+      listItem.innerHTML = `
+        <h3>${flight.airline || "Compagnia sconosciuta"} - ${flight.price} EUR</h3>
+        <p>Data di partenza: ${flight.departure_at}</p>
+      `;
+      resultsList.appendChild(listItem);
+    });
+
+    if (data.data.length === 0) {
+      resultsList.innerHTML = '<li>Nessun volo trovato 😢</li>';
+    }
+
+  } catch (error) {
+    console.error('Errore durante la ricerca dei voli:', error);
+    document.getElementById('results-list').innerHTML = '<li>Errore nella richiesta 😬</li>';
+  }
+});
