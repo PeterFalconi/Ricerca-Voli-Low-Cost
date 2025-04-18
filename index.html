@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cerca Voli</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Cerca Voli</h1>
+        <form id="flight-search-form">
+            <label for="departure-city">Città di partenza:</label>
+            <input type="text" id="departure-city" name="departure-city" placeholder="Es: Roma" required>
+            
+            <label for="arrival-city">Città di arrivo:</label>
+            <input type="text" id="arrival-city" name="arrival-city" placeholder="Es: Milano" required>
+            
+            <label for="departure-date">Data di partenza:</label>
+            <input type="date" id="departure-date" name="departure-date" required>
+            
+            <button type="submit">Cerca</button>
+        </form>
+        <div id="results"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
