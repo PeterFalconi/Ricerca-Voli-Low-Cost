@@ -7,7 +7,7 @@ document.getElementById('search-form').addEventListener('submit', async function
   const adults = document.getElementById('adults').value;
 
   // Sostituisci questa URL con l'endpoint della tua API di Travelpayouts
-  const apiUrl = `https://api.travelpayouts.com/v2/prices/latest?origin=${fromCity}&destination=${toCity}&departure_at=${departureDate}&adults=${adults}&token=YOUR_API_KEY`;
+  const apiUrl = `https://api.travelpayouts.com/v2/prices/latest?origin=${fromCity}&destination=${toCity}&departure_at=${departureDate}&adults=${adults}&token=f438ef847616d4e4229a56129f870ba2;
 
   try {
     const response = await fetch(apiUrl);
